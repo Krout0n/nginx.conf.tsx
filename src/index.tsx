@@ -1,6 +1,20 @@
 /* @jsx NginxConfig.createElement */
 import * as React from "react";
 import * as NginxConfig from "./nginx";
+
+type WorkerProcessesProps = Readonly<{num: number}>;
+
+// user       www www;  ## Default: nobody
+
+// worker_processes  5;  ## Default: 1
+export const WorkerProcesses: NginxConfig.VFC<WorkerProcessesProps> = (num = {num: 1}) => (
+  <div className="worker_processes" {...num}></div>
+)
+
+// error_log  logs/error.log;
+// pid        logs/nginx.pid;
+// worker_rlimit_nofile 8192;
+
 type ServerProps = Partial<Readonly<{
   // listen 80; TODO: Address 型を定義しても良い
   listen: number | string;
@@ -23,7 +37,6 @@ type LocationProps = Readonly<{path: string} & Partial<{
   index: string | readonly string[];
   deny: string;
 }>>;
-
 
 export const Location: React.VFC<LocationProps> = (props) => {
   return <div className="location" {...props} ></div>
@@ -51,8 +64,10 @@ export const Location: React.VFC<LocationProps> = (props) => {
   }
 */
 
-<Server errorPage={["500","502", "503", "504", "/50x.html"]}>
+<Server errorPage={["500", "502", "503", "504", "/50x.html"]}>
   <Location path={"/"} root={"/usr/share/nginx/html"} index={["index.html", "index.html"]} />
   <Location prefix={"="} path={"/50x.html"} root={"/usr/share/nginx/html"} />
   <Location prefix={"~"} path={"/\\.ht"} deny={"all"}  />  
 </Server>
+
+{/* <WorkerProcesses num={2}></WorkerProcesses>; */}
