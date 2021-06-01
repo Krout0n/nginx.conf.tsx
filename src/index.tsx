@@ -30,6 +30,9 @@ type LocationProps = Readonly<
 // worker_rlimit_nofile 8192;
 
 type WorkerProcessesProps = Readonly<{ num: number }>;
+type ErrorLogProps = Readonly<{ path: string }>;
+type PidProps = Readonly<{ path: string }>;
+type WorkerRlimitNofileProps = Readonly<{ num: number }>;
 
 declare global {
   namespace JSX {
@@ -38,6 +41,9 @@ declare global {
       server: ServerProps;
       location: LocationProps;
       workerProcesses: WorkerProcessesProps;
+      errorLog: ErrorLogProps;
+      pid: PidProps;
+      workerRlimitNofile: WorkerRlimitNofileProps;
     }
   }
 }
@@ -77,4 +83,7 @@ declare global {
   <location prefix="~" path="/\.ht" deny="all" />
 </server>;
 
-<workerProcesses num={5}></workerProcesses>;
+<workerProcesses num={5} />;
+<errorLog path="logs/error.log" />;
+<pid path="logs/nginx.pid" />;
+<workerRlimitNofile num={8192} />;
