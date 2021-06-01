@@ -34,8 +34,23 @@ type ErrorLogProps = Readonly<{ path: string }>;
 type PidProps = Readonly<{ path: string }>;
 type WorkerRlimitNofileProps = Readonly<{ num: number }>;
 
+// events {
+//   worker_connections  4096;  ## Default: 1024
+// }
+
+// http  {
+// include    conf/mime.types;
+// include    /etc/nginx/proxy.conf;
+// include    /etc/nginx/fastcgi.conf;
+type HttpProps = Readonly<{ children: JSX.Element[]; }>
+type IncludeProps = Readonly<{ path: string }>;
+
 declare global {
   namespace JSX {
+    interface ElementChildrenAttribute {
+      // childrenという名前を子を表すプロパティ名として宣言
+      children: any;
+    }
     type Element = {};
     interface IntrinsicElements {
       server: ServerProps;
@@ -44,6 +59,8 @@ declare global {
       errorLog: ErrorLogProps;
       pid: PidProps;
       workerRlimitNofile: WorkerRlimitNofileProps;
+      http: HttpProps;
+      include: IncludeProps;
     }
   }
 }
@@ -87,3 +104,9 @@ declare global {
 <errorLog path="logs/error.log" />;
 <pid path="logs/nginx.pid" />;
 <workerRlimitNofile num={8192} />;
+
+<http>
+  <include path="conf/mime.types" />
+  <include path="/etc/nginx/proxy.conf" />
+  <include path="/etc/nginx/fastcgi.conf" />
+</http>
