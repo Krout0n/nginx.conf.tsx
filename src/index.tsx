@@ -23,12 +23,21 @@ type LocationProps = Readonly<
   }>
 >;
 
+// user       www www;  ## Default: nobody
+// worker_processes  5;  ## Default: 1
+// error_log  logs/error.log;
+// pid        logs/nginx.pid;
+// worker_rlimit_nofile 8192;
+
+type WorkerProcessesProps = Readonly<{ num: number }>;
+
 declare global {
   namespace JSX {
     type Element = {};
     interface IntrinsicElements {
       server: ServerProps;
       location: LocationProps;
+      workerProcesses: WorkerProcessesProps;
     }
   }
 }
@@ -54,8 +63,18 @@ declare global {
     }
   }
 */
-<server listen={80} serverName="local" errorPage={["500", "502", "503", "504", "/50x.html"]}>
-  <location path="/" root="/usr/share/nginx/html" index={["index.html", "index.htm"]} />
+<server
+  listen={80}
+  serverName="local"
+  errorPage={["500", "502", "503", "504", "/50x.html"]}
+>
+  <location
+    path="/"
+    root="/usr/share/nginx/html"
+    index={["index.html", "index.htm"]}
+  />
   <location prefix="=" path="/50x.html" root="/usr/share/nginx/html" />
   <location prefix="~" path="/\.ht" deny="all" />
 </server>;
+
+<workerProcesses num={5}></workerProcesses>;

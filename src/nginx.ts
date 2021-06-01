@@ -1,4 +1,4 @@
-type DirectiveTag = "server" | "location" | "worker_processes" | "error_log";
+type DirectiveTag = "server" | "location" | "workerProcesses" | "error_log";
 
 export function createElement(
   _tag: DirectiveTag,
