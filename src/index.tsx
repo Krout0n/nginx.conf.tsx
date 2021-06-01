@@ -42,7 +42,7 @@ type WorkerRlimitNofileProps = Readonly<{ num: number }>;
 // include    conf/mime.types;
 // include    /etc/nginx/proxy.conf;
 // include    /etc/nginx/fastcgi.conf;
-type HttpProps = Readonly<{ children: JSX.Element[]; }>
+type HttpProps = Readonly<{ children: JSX.Element[] }>;
 type IncludeProps = Readonly<{ path: string }>;
 
 declare global {
@@ -65,41 +65,6 @@ declare global {
   }
 }
 
-/*
-/etc/nginx/conf.d/default.conf
-  server {
-    listen       80;
-    server_name  localhost;
-
-    location / {
-        root   /usr/share/nginx/html;
-        index  index.html index.htm;
-    }
-
-    error_page   500 502 503 504  /50x.html;
-    location = /50x.html {
-        root   /usr/share/nginx/html;
-    }
-
-    location ~ /\.ht {
-        deny  all;
-    }
-  }
-*/
-<server
-  listen={80}
-  serverName="local"
-  errorPage={["500", "502", "503", "504", "/50x.html"]}
->
-  <location
-    path="/"
-    root="/usr/share/nginx/html"
-    index={["index.html", "index.htm"]}
-  />
-  <location prefix="=" path="/50x.html" root="/usr/share/nginx/html" />
-  <location prefix="~" path="/\.ht" deny="all" />
-</server>;
-
 <workerProcesses num={5} />;
 <errorLog path="logs/error.log" />;
 <pid path="logs/nginx.pid" />;
@@ -109,4 +74,17 @@ declare global {
   <include path="conf/mime.types" />
   <include path="/etc/nginx/proxy.conf" />
   <include path="/etc/nginx/fastcgi.conf" />
-</http>
+  <server
+    listen={80}
+    serverName="local"
+    errorPage={["500", "502", "503", "504", "/50x.html"]}
+  >
+    <location
+      path="/"
+      root="/usr/share/nginx/html"
+      index={["index.html", "index.htm"]}
+    />
+    <location prefix="=" path="/50x.html" root="/usr/share/nginx/html" />
+    <location prefix="~" path="/\.ht" deny="all" />
+  </server>
+</http>;
