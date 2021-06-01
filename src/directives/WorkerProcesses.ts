@@ -7,7 +7,7 @@ export default class WorkerProcesses implements Directive {
     this.num = props.num;
   }
 
-  emit_config(): string {
+  emitConfig(): string {
     return `worker_processes ${this.num};`;
   }
 }

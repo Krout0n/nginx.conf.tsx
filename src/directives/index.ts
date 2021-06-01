@@ -1,3 +1,3 @@
 export interface Directive {
-  emit_config(): string;
+  emitConfig(): string;
 }

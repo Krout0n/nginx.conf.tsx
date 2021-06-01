@@ -16,7 +16,7 @@ export default class Location implements Directive {
     this.root = props.root;
   }
 
-  emit_config(): string {
+  emitConfig(): string {
     return `location ${this.prefix ?? ""} ${this.path} {
       ${this.stringify_index()}
       ${this.stringify_root()}
