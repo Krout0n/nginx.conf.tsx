@@ -1,7 +1,7 @@
 /* @jsx NginxConfig.createElement */
 import * as NginxConfig from "./nginx";
 
-<http>
+const x = <http>
   <include path="conf/mime.types" />
   <include path="/etc/nginx/proxy.conf" />
   <include path="/etc/nginx/fastcgi.conf" />

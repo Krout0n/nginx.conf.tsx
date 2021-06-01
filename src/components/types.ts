@@ -25,7 +25,7 @@ export type ServerProps = Partial<
     serverName: string;
     errorPage: readonly string[];
 
-    children: JSX.Element;
+    children: JSX.Element[];
   }>
 >;
 
