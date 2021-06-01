@@ -12,9 +12,9 @@ type ServerProps = Partial<
   }>
 >;
 
-type Prefix = "^~" | "=" | "~" | "~*";
+export type Prefix = "^~" | "=" | "~" | "~*";
 // TODO: 多分もっとある
-type LocationProps = Readonly<
+export type LocationProps = Readonly<
   { path: string } & Partial<{
     prefix: Prefix;
     root: string;
