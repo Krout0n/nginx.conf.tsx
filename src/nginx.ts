@@ -1,14 +1,9 @@
-type ClassName = "server" | "location";
-
-type ClassNameObj = Readonly<{ className: ClassName }>;
+type DirectiveTag = "server" | "location" | "worker_processes" | "error_log";
 
 export function createElement(
-  _tag: never,
-  _classNameObj: ClassNameObj,
-  _args: never
+  _tag: DirectiveTag,
+  _obj: never,
+  ..._args: never
 ) {
   return {};
 }
-
-export type VFC<_T> = any;
-export type FC<_Props> = any;
